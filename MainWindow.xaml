@@ -71,6 +71,22 @@
                     <Button Content="4"/>
                 </WrapPanel>
             </TabItem>
+            <TabItem Header="10.09">
+                <StackPanel>
+                    <Label Name="lb" Content="Lable"/>
+                    <TextBlock Text="TextBlock"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="input"/>
+                        <TextBox Name="tb_1" Text="введите значение" Width="200" Height="80" 
+                                 TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+                        <TextBox Name="tb_2" Text="введите значение" Width="200"
+                                 TextWrapping="WrapWithOverflow"/>
+                    </StackPanel>
+                    <PasswordBox Name="pasBox" PasswordChar="*" MinHeight="30" >
+                    </PasswordBox>
+                    <Button Content="ЖМЯК" Click="bt_out_text"/>
+                </StackPanel>
+            </TabItem>
         </TabControl>
     </Grid>
     
