@@ -6,6 +6,42 @@
         xmlns:local="clr-namespace:_2307cb1"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="CheckBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Border x:Name="CheckBorder" 
+                                    Width="30" 
+                                    Height="30" 
+                                    BorderBrush="Black" 
+                                    BorderThickness="1" 
+                                    Background="White">
+                                <Path x:Name="CheckMark" 
+                                      Stroke="Black" 
+                                      StrokeThickness="3" 
+                                      Data="M 4,12 L 10,18 L 20,8" 
+                                      Visibility="Collapsed"/>
+                            </Border>
+                            <ContentPresenter Grid.Column="1" 
+                                              VerticalAlignment="Center" 
+                                              Margin="5,0,0,0"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="CheckMark" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
         <!-- тут можно писать комит хаха-->
         <TabControl FontSize="30">
@@ -46,8 +82,8 @@
                     <StackPanel>
                         <StackPanel Margin="0 5 0 5" Orientation="Horizontal">
                             <Label>inpyt text 1</Label>
-                            <TextBox Margin="10 0 10 0" Width="100"/>
-                            <Button Content="Жмяк"/>
+                            <TextBox Name="TestTextBox" Margin="10 0 10 0" Width="100"/>
+                            <Button Content="Жмяк" Click="Button_Click_1"/>
                         </StackPanel>
                         <StackPanel Margin="0 5 0 5" Orientation="Horizontal">
                             <Label>inpyt text 1</Label>
@@ -85,6 +121,49 @@
                     <PasswordBox Name="pasBox" PasswordChar="*" MinHeight="30" >
                     </PasswordBox>
                     <Button Content="ЖМЯК" Click="bt_out_text"/>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="17.09">
+                <StackPanel>
+                    <StackPanel>
+                        <CheckBox Content="выбор 1" IsChecked="False" 
+                                  Checked="CheckBox_Checked"
+                                  Unchecked="CheckBox_Unchecked">
+                            <CheckBox.ToolTip>
+                                <StackPanel>
+                                    <Label>content</Label>
+                                    <Button Content="123" ToolTip="ещё один"/>
+                                </StackPanel>
+                            </CheckBox.ToolTip>
+                        </CheckBox>
+                        <StackPanel Name="stackPanObr" Orientation="Horizontal" Visibility="Collapsed">
+                            <Label Content="inpyt"/>
+                            <TextBox Width="150"/>
+                        </StackPanel>
+                        <CheckBox Name="check_1" Content="выбор 2" IsChecked="True"/>
+                        <CheckBox Content="выбор 3" IsChecked="{x:Null}"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <Expander Header="RadioBatton">
+                            <StackPanel>
+                                <RadioButton GroupName="1" Content="1" 
+                                             Checked="RadioButton_Checked"/>
+                                <RadioButton GroupName="1" Content="2"
+                                             Checked="RadioButton_Checked"/>
+                                <RadioButton GroupName="2" Content="4"/>
+                                <RadioButton GroupName="2" Content="3"/>
+                            </StackPanel>
+                        </Expander>
+                    </StackPanel>
+                    <StackPanel>
+                        <ListBox Name="ListBoxUser"
+                                 SelectionChanged="Check_listBox">
+                        </ListBox>
+                        <Button Content="ADD" Click="Button_Click"/>
+                    </StackPanel>
+                    <StackPanel>
+                        <ComboBox Name="ComboBoxUserName"/>
+                    </StackPanel>
                 </StackPanel>
             </TabItem>
         </TabControl>
