@@ -1,4 +1,5 @@
 ﻿using _2307cb1.Model;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Windows;
 using System.Windows.Controls;
@@ -7,7 +8,7 @@ namespace _2307cb1
 {
     public partial class MainWindow : Window
     {
-        List<User> users;
+        public ObservableCollection<User> users { set; get; }
         private int b;
         public int B
         {
@@ -26,12 +27,12 @@ namespace _2307cb1
 
         int a = 9;
         
-        string str { get; set; } = "";
+        public string str { get; set; } = "1234567";
 
         public MainWindow()
         {
             InitializeComponent();
-            users = new List<User>()
+            users = new ObservableCollection<User>()
             {
                 new User("Name 1", "Email", "Pass"),
                 new User("Name 2", "Email", "Pass"),
@@ -40,11 +41,11 @@ namespace _2307cb1
             };
 
             ListBoxUser.ItemsSource = users;
-           // MessageBox.Show(users[0].Id.ToString());
 
             check_1.IsChecked = true;
 
             ComboBoxUserName.ItemsSource = toStrUserName(users);
+            this.DataContext = this;
         }
 
         private void bt_out_text(object sender, RoutedEventArgs e)
@@ -96,9 +97,9 @@ namespace _2307cb1
             ListBoxUser.Items.Refresh();
         }
 
-        public List<string> toStrUserName(List<User> users)
+        public ObservableCollection<string> toStrUserName(ObservableCollection<User> users)
         {
-            List<string> result = new List<string>();
+            ObservableCollection<string> result = new ObservableCollection<string>();
 
             foreach (var item in users)
             {
@@ -111,6 +112,11 @@ namespace _2307cb1
         {
             str = TestTextBox.Text.ToString();
             MessageBox.Show(str);
+        }
+
+        private void Button_save_user(object sender, RoutedEventArgs e)
+        {
+            users.Add(new User("new name", "new Email", "new Password"));
         }
     }
 }

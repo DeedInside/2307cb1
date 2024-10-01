@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:_2307cb1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="750" Width="800">
     <Window.Resources>
         <Style TargetType="CheckBox">
             <Setter Property="Template">
@@ -164,6 +164,29 @@
                     <StackPanel>
                         <ComboBox Name="ComboBoxUserName"/>
                     </StackPanel>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="01.10">
+                <StackPanel>
+                    <ListView Name="listViewUser" ItemsSource="{Binding users}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="id" DisplayMemberBinding="{Binding Id}"/>
+                                <GridViewColumn Header="DateTime" DisplayMemberBinding="{Binding Date}"/>
+                                <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                                <GridViewColumn Header="Password" DisplayMemberBinding="{Binding Password}"/>
+                                <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <StackPanel DataContext="{Binding ElementName=listViewUser, Path=SelectedItem}">
+                        <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Text="{Binding Date, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Button Click="Button_save_user" Content="Save user"/>
+                    </StackPanel>
+                    <Label Content="{Binding users[0].Name}"/>
                 </StackPanel>
             </TabItem>
         </TabControl>
