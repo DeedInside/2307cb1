@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:local="clr-namespace:_2307cb1"
         mc:Ignorable="d"
         Title="MainWindow" Height="750" Width="800">
@@ -107,20 +108,22 @@
                     <Button Content="4"/>
                 </WrapPanel>
             </TabItem>
-            <TabItem Header="10.09">
+            <TabItem Header="10.09" Name="BiInput">
                 <StackPanel>
                     <Label Name="lb" Content="Lable"/>
                     <TextBlock Text="TextBlock"/>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="input"/>
-                        <TextBox Name="tb_1" Text="введите значение" Width="200" Height="80" 
+                        <TextBox Text="введите значение" Width="200" Height="80" 
                                  TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
-                        <TextBox Name="tb_2" Text="введите значение" Width="200"
+                        <TextBox Text="введите значение" Width="200"
                                  TextWrapping="WrapWithOverflow"/>
                     </StackPanel>
                     <PasswordBox Name="pasBox" PasswordChar="*" MinHeight="30" >
                     </PasswordBox>
-                    <Button Content="ЖМЯК" Click="bt_out_text"/>
+                    <Button Name="Bt_1" Content="ЖМЯК" 
+                            Command="{Binding Bt_out_text}" 
+                            CommandParameter="{Binding ElementName=Bt_1}"/>
                 </StackPanel>
             </TabItem>
             <TabItem Header="17.09">
@@ -159,16 +162,21 @@
                         <ListBox Name="ListBoxUser"
                                  SelectionChanged="Check_listBox">
                         </ListBox>
-                        <Button Content="ADD" Click="Button_Click"/>
-                    </StackPanel>
-                    <StackPanel>
-                        <ComboBox Name="ComboBoxUserName"/>
+                        <Button Content="ADD"/>
                     </StackPanel>
                 </StackPanel>
             </TabItem>
-            <TabItem Header="01.10">
+            <TabItem Header="01.10" Name="TiList">
                 <StackPanel>
-                    <ListView Name="listViewUser" ItemsSource="{Binding users}">
+                    <ListView Name="listViewUser" ItemsSource="{Binding Users}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction
+                                    Command="{Binding ListViewSelection}"
+                                    CommandParameter="{Binding ElementName=listViewUser, 
+                                        Path=SelectedItem}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="id" DisplayMemberBinding="{Binding Id}"/>
@@ -184,9 +192,12 @@
                         <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"/>
                         <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"/>
                         <TextBox Text="{Binding Date, UpdateSourceTrigger=PropertyChanged}"/>
-                        <Button Click="Button_save_user" Content="Save user"/>
                     </StackPanel>
-                    <Label Content="{Binding users[0].Name}"/>
+                    <Button Command="{Binding Save_user}" Content="Save user"/>
+                    <StackPanel>
+                        <ComboBox ItemsSource="{Binding ListUserName}"/>
+                    </StackPanel>
+                    
                 </StackPanel>
             </TabItem>
         </TabControl>
